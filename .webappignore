@@ -1,0 +1,15 @@
+# Exclude these folders from Azure App Service deployment
+vocabulary-hub/
+frontend/
+api-logs/
+api-logs-temp/
+api-deploy.zip
+.azure/
+.git/
+.vscode/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+node_modules/

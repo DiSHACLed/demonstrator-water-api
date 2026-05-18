@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiSHACLed - Water Level Control Center</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💧 DiSHACLed Water Level Control Center 💧</h1>
+            <p class="subtitle">Real-time Water Monitoring with Semantic Web Technologies</p>
+        </header>
+
+        <main>
+            <!-- Control Panel -->
+            <section class="control-panel">
+                <h2>Control Panel</h2>
+                <div class="control-group">
+                    <label for="waterLevel">Water Level: <span id="levelValue">30</span>%</label>
+                    <input 
+                        type="range" 
+                        id="waterLevel" 
+                        min="0" 
+                        max="100" 
+                        value="30" 
+                        class="slider"
+                    >
+                    <div class="slider-markers">
+                        <span>0%</span>
+                        <span class="marker-25">25%</span>
+                        <span class="marker-50">50%</span>
+                        <span class="marker-75">75%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="applyBtn" class="btn btn-primary">Apply Settings</button>
+                    <button id="resetBtn" class="btn btn-secondary">Reset to Normal</button>
+                </div>
+            </section>
+
+            <!-- Water Level Thresholds -->
+            <section class="thresholds-section">
+                <h2>📊 Water Level Thresholds</h2>
+                <div class="thresholds-table">
+                    <div class="threshold-row threshold-safe">
+                        <div class="threshold-icon">🟢</div>
+                        <div class="threshold-info">
+                            <div class="threshold-name">Gemiddeld Laagwater</div>
+                            <div class="threshold-name-eng">Average Low Water</div>
+                        </div>
+                        <div class="threshold-calc">
+                            <span class="calc-detail">± 0,00 m + 13,00 m</span>
+                        </div>
+                        <div class="threshold-value">13,00 m</div>
+                    </div>
+
+                    <div class="threshold-row threshold-normal">
+                        <div class="threshold-icon">🟡</div>
+                        <div class="threshold-info">
+                            <div class="threshold-name">Gewoon Hoogwater</div>
+                            <div class="threshold-name-eng">Normal High Water</div>
+                        </div>
+                        <div class="threshold-calc">
+                            <span class="calc-detail">± 5,20 m + 13,00 m</span>
+                        </div>
+                        <div class="threshold-value">18,20 m</div>
+                    </div>
+
+                    <div class="threshold-row threshold-warning">
+                        <div class="threshold-icon">🟠</div>
+                        <div class="threshold-info">
+                            <div class="threshold-name">Risicowater (Muren dicht)</div>
+                            <div class="threshold-name-eng">Risk Water (Walls Closed)</div>
+                        </div>
+                        <div class="threshold-calc">
+                            <span class="calc-detail">± 6,30 m + 13,00 m</span>
+                        </div>
+                        <div class="threshold-value">19,30 m</div>
+                    </div>
+
+                    <div class="threshold-row threshold-danger">
+                        <div class="threshold-icon">🔴</div>
+                        <div class="threshold-info">
+                            <div class="threshold-name">Kaaivlakte stroomt onder</div>
+                            <div class="threshold-name-eng">Quay Floods</div>
+                        </div>
+                        <div class="threshold-calc">
+                            <span class="calc-detail">± 7,00 m + 13,00 m</span>
+                        </div>
+                        <div class="threshold-value">20,00 m</div>
+                    </div>
+
+                    <div class="threshold-row threshold-critical">
+                        <div class="threshold-icon">🚨</div>
+                        <div class="threshold-info">
+                            <div class="threshold-name">Muur overstroomd (Stad)</div>
+                            <div class="threshold-name-eng">Wall Flooded (City)</div>
+                        </div>
+                        <div class="threshold-calc">
+                            <span class="calc-detail">± 8,35 m + 13,00 m</span>
+                        </div>
+                        <div class="threshold-value">21,35 m</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Display -->
+            <section class="data-display">
+                <h2>Live Data Streams</h2>
+                
+                <!-- Active Source Selection -->
+                <div class="active-source-selector">
+                    <label class="selector-label">Primary Source for Antwerp:</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="activeSource" value="source-a" checked>
+                            <span class="radio-custom"></span>
+                            <span class="radio-text">Source A (Centimeters)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="activeSource" value="source-b">
+                            <span class="radio-custom"></span>
+                            <span class="radio-text">Source B (Millimeters)</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="sources-grid">
+                    <!-- Source A -->
+                    <div class="source-card" id="sourceA">
+                        <div class="source-header">
+                            <h3>Source A</h3>
+                            <span class="unit-badge">Centimeters</span>
+                        </div>
+                        <div class="reading-display">
+                            <div class="reading-value" id="sourceAValue">--</div>
+                            <div class="reading-unit">cm</div>
+                        </div>
+                        <div class="reading-meta">
+                            <span id="sourceATime">--</span>
+                        </div>
+                        <div class="reading-status" id="sourceAStatus">
+                            <span class="status-dot"></span> Waiting for data...
+                        </div>
+                    </div>
+
+                    <!-- Source B -->
+                    <div class="source-card" id="sourceB">
+                        <div class="source-header">
+                            <h3>Source B</h3>
+                            <span class="unit-badge">Millimeters</span>
+                        </div>
+                        <div class="reading-display">
+                            <div class="reading-value" id="sourceBValue">--</div>
+                            <div class="reading-unit">mm</div>
+                        </div>
+                        <div class="reading-meta">
+                            <span id="sourceBTime">--</span>
+                        </div>
+                        <div class="reading-status" id="sourceBStatus">
+                            <span class="status-dot"></span> Waiting for data...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="auto-refresh">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="autoRefresh" checked>
+                        <span>Auto-refresh data (every 5 seconds)</span>
+                    </label>
+                    <button id="refreshBtn" class="btn btn-small">Refresh Now</button>
+                </div>
+            </section>
+
+            <!-- Metadata and Documentation -->
+            <section class="metadata-section">
+                <h2>Semantic Information</h2>
+                
+                <div class="metadata-grid">
+                    <div class="metadata-card">
+                        <h3>📋 SHACL Shapes</h3>
+                        <p>Data validation constraints for water level measurements</p>
+                        <a href="https://dishacled-api.azurewebsites.net/api/v1/shapes/shacl" target="_blank" class="btn btn-link">
+                            View SHACL Shapes
+                        </a>
+                    </div>
+
+                    <div class="metadata-card">
+                        <h3>🔒 ODRL Policies</h3>
+                        <p>Usage policies and permissions for the datasets</p>
+                        <a href="https://dishacled-api.azurewebsites.net/api/v1/shapes/odrl" target="_blank" class="btn btn-link">
+                            View ODRL Policies
+                        </a>
+                    </div>
+
+                    <div class="metadata-card">
+                        <h3>📦 DCAT Catalog</h3>
+                        <p>DCAT-AP metadata catalog for datasets and distributions</p>
+                        <a href="https://dishacled-api.azurewebsites.net/api/v1/catalog" target="_blank" class="btn btn-link">
+                            View DCAT Catalog
+                        </a>
+                    </div>
+
+                    <div class="metadata-card">
+                        <h3>🔧 API Documentation</h3>
+                        <p>Interactive API documentation and testing</p>
+                        <a href="https://dishacled-api.azurewebsites.net/docs" target="_blank" class="btn btn-link">
+                            Open API Docs
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>DiSHACLed - Water Level Monitoring Demo | JSON-LD • SHACL • ODRL • DCAT-AP</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

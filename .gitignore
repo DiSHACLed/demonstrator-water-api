@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# Azure Deployment
+.azure/
+
+# Deployment Artifacts
+*.zip
+*-deploy/
+*-logs/
+*-temp/
+startup.txt
+
+# Local Development (if created)
+*-local.ps1
+*-local.js
+deploy-api.zip
+deploy-frontend.zip
+*.zip
+
+# Azure local settings
+local.settings.json
+
+# Personal operational docs (not for public repo)
+DEPLOYED_SERVICES.md
+VOCABULARY_HUB_DEPLOYMENT.md
+
+# IDE workspace file
+DiSHACLed.code-workspace

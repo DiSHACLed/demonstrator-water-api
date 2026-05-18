@@ -1,0 +1,14 @@
+# FastAPI and server
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+gunicorn==21.2.0
+pydantic==2.5.3
+
+# CORS support
+python-multipart==0.0.6
+
+# JSON-LD support
+pyld==2.0.3
+
+# Datetime utilities
+python-dateutil==2.8.2
