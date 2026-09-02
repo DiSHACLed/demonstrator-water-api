@@ -29,6 +29,7 @@ class WaterLevelReading(BaseModel):
     unit_code: str = Field(alias="unitCode")
     measured_at: datetime = Field(alias="measuredAt")
     source: str
+    sensor_brand: str = Field(alias="SensorBrand")
     location: Optional[dict] = None
     
     model_config = ConfigDict(
@@ -50,6 +51,7 @@ class WaterLevelReading(BaseModel):
                 "unitCode": "CMT",
                 "measuredAt": "2026-03-25T10:30:00Z",
                 "source": "Source A",
+                "SensorBrand": "HydroMeasureX5",
                 "location": {
                     "@type": "Place",
                     "name": "Antwerp Water Monitoring Station",

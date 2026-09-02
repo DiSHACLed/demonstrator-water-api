@@ -111,6 +111,18 @@ curl http://localhost:8000/api/v1/source-b/current
 curl http://localhost:8000/api/v1/antwerp/current
 ```
 
+### Get SOSA/QUDT Observations (v2)
+```powershell
+# Same readings and controls as v1, represented as sosa:Observation -> qudt:QuantityValue
+curl http://localhost:8000/api/v2/source-a/current
+curl http://localhost:8000/api/v2/source-b/current
+curl http://localhost:8000/api/v2/antwerp/current
+```
+
+> Measurement endpoints return `application/ld+json` by default. Request
+> `application/json` explicitly (e.g. `curl -H "Accept: application/json" ...`) to
+> receive that content type instead.
+
 ### Set Primary Source
 ```powershell
 $body = @{
@@ -182,6 +194,7 @@ All API responses use JSON-LD format with semantic annotations:
   "unitCode": "CMT",
   "measuredAt": "2026-03-25T10:30:00Z",
   "source": "Source A",
+  "SensorBrand": "HydroMeasureX5",
   "location": {
     "@type": "Place",
     "name": "Antwerp Water Monitoring Station",
@@ -193,6 +206,11 @@ All API responses use JSON-LD format with semantic annotations:
   }
 }
 ```
+
+Every measurement carries a `SensorBrand` (`HydroMeasureX5` for Source A,
+`WaterProber3` for Source B). Source B additionally reports a `waterTemperature`
+of `18°C`; this extra field also appears on the Antwerp endpoint whenever Source B
+is the active source.
 
 ### Water Level Mapping
 - **Slider**: 0-100% (percentage)

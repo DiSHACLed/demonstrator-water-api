@@ -121,11 +121,25 @@ az webapp up --resource-group YOUR_RG --name YOUR_FRONTEND_NAME --runtime "PYTHO
 
 ## 🔌 API Endpoints
 
-### Water Sources
+### Water Sources (v1 – schema.org `PropertyValue`)
 - `GET /api/v1/source-a/current` - Current reading from Source A (1300-2200 cm)
 - `GET /api/v1/source-b/current` - Current reading from Source B (13000-22000 mm)
 - `GET /api/v1/antwerp/current` - Antwerp proxy using active primary source
 - `GET /api/v1/sources/all` - All sources in JSON-LD collection
+
+### Water Sources (v2 – SOSA/QUDT `Observation`)
+- `GET /api/v2/source-a/current` - Source A as `sosa:Observation` → `qudt:QuantityValue` (unit `unit:CentiM`)
+- `GET /api/v2/source-b/current` - Source B as `sosa:Observation` → `qudt:QuantityValue` (unit `unit:MilliM`)
+- `GET /api/v2/antwerp/current` - Antwerp proxy using active primary source
+
+Both versions read from the same shared controls, so they always stay
+synchronized. Measurement responses are served as `application/ld+json` by
+default (content-negotiable: clients requesting only `application/json` still
+receive that content type).
+
+**Additional measurement fields**
+- `SensorBrand` – on every measurement: `HydroMeasureX5` (Source A) / `WaterProber3` (Source B); nested under `sosa:madeBySensor` in v2.
+- `waterTemperature` – Source B only, always `18°C` (propagated to the Antwerp endpoint when Source B is active).
 
 ### Control
 - `POST /api/v1/control/set-level` - Set water level (0-100%)

@@ -99,10 +99,24 @@ cd ..
 
 ## API Endpoints
 
-### Water Sources
+### Water Sources (v1 – schema.org `PropertyValue`)
 - `GET /api/v1/source-a/current` - Source A water level (1300-2200 cm)
 - `GET /api/v1/source-b/current` - Source B water level (13000-22000 mm)
 - `GET /api/v1/antwerp/current` - Antwerp proxy (uses active source)
+
+### Water Sources (v2 – SOSA/QUDT `Observation`)
+- `GET /api/v2/source-a/current` - Source A as `sosa:Observation` → `qudt:QuantityValue` (unit `unit:CentiM`)
+- `GET /api/v2/source-b/current` - Source B as `sosa:Observation` → `qudt:QuantityValue` (unit `unit:MilliM`)
+- `GET /api/v2/antwerp/current` - Antwerp proxy (uses active source)
+
+Both API versions share the same water-level slider and active-source toggle, so
+they always stay synchronized. Measurement responses are served as
+`application/ld+json` by default (content-negotiable: a client requesting only
+`application/json` still receives that content type).
+
+**Additional measurement fields**
+- `SensorBrand` – present on every measurement: `HydroMeasureX5` (Source A) / `WaterProber3` (Source B). In v2 it is nested under `sosa:madeBySensor`.
+- `waterTemperature` – Source B only, always `18°C` (also surfaced on the Antwerp endpoint when Source B is the active source).
 
 ### Control
 - `POST /api/v1/control/set-level` - Set water level percentage
