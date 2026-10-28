@@ -69,6 +69,11 @@ local.settings.json
 # Personal operational docs (not for public repo)
 DEPLOYED_SERVICES.md
 VOCABULARY_HUB_DEPLOYMENT.md
+AZURE_DEPLOYMENT.md
+DEPLOYMENT_CHECKLIST.md
+
+# Vocabulary Hub (separate repository)
+vocabulary-hub/
 
 # IDE workspace file
 DiSHACLed.code-workspace
